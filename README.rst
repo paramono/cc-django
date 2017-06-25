@@ -24,6 +24,7 @@ Usage
 * ``./manage.py bower_install``  # installs frontend dependencies
 * ``createdb <db_name>``
 * Create ``.env`` file in project root with ``DATABASE_URL="postgres://<db_role>:<db_password>@127.0.0.1:5432/<db_name>"``
+* ``./manage.py migrate`` 
 
 **Below the line is the excerpt from the original README**
 
