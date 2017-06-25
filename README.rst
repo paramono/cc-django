@@ -1,16 +1,33 @@
-Cookiecutter Django
+Cookiecutter Django (opinionated fork)
 =======================
 
-.. image:: https://pyup.io/repos/github/pydanny/cookiecutter-django/shield.svg
-     :target: https://pyup.io/repos/github/pydanny/cookiecutter-django/
-     :alt: Updates
+This package is a fork of cookiecutter-django_ with some opinionated adjustments, namely:
 
-.. image:: https://travis-ci.org/pydanny/cookiecutter-django.svg?branch=master
-     :target: https://travis-ci.org/pydanny/cookiecutter-django?branch=master
-     :alt: Build Status
+* Shortened package name. Who has the patience to type `cookiecutter cookiecutter-django` over and over again?
+* Relies on django-bower_ for frontend package management
+* More elaborate default scss styling, which also allows you to choose which bootstrap version (3 or 4) to compile
+* Some of my custom scripts and styles available out of the box
+* Modular ``base.html`` template, some of its parts moved to separate templates in the ``templates/blocks`` directory for convenience. Custom scripts and styles also included
+* Path variables in ``config.settings.base`` defined with ``Pathlib`` instead of ``environ``. Why would you choose a 3rd-party library when there is an official one available?
+* ``name`` field removed from ``User`` model, migration and admin.
 
-.. image:: https://badges.gitter.im/Join Chat.svg
-   :target: https://gitter.im/pydanny/cookiecutter-django?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+.. _cookiecutter-django: https://github.com/pydanny/cookiecutter-django 
+.. _django-bower: https://github.com/nvbn/django-bower
+
+Usage
+-----
+
+* ``cookiecutter cc-django``  # will prompt for <project_name>
+* ``mkvirtualenv -a <project_name>``
+* Add ``export DJANGO_READ_DOT_ENV_FILE=True`` to ``postactivate`` script in your virtualenv
+* ``pip install -Ur requirements/local.txt``
+* ``./manage.py bower_install``  # installs frontend dependencies
+* ``createdb <db_name>``
+* Create ``.env`` file in project root with ``DATABASE_URL="postgres://<db_role>:<db_password>@127.0.0.1:5432/<db_name>"``
+
+**Below the line is the excerpt from the original README**
+
+----
 
 Powered by Cookiecutter_, Cookiecutter Django is a framework for jumpstarting production-ready Django projects quickly.
 
