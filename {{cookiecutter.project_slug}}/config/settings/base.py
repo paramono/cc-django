@@ -12,6 +12,10 @@ from pathlib import Path
 
 import environ
 
+{% if cookiecutter.use_djangocms == 'y' -%}
+gettext = lambda s: s  # noqa
+{%- endif %}
+
 SETTINGS_FILE = Path(os.path.abspath(__file__))  # <root>/{{cookiecutter.project_slug}}/config/settings/base.py
 SETTINGS_ROOT = SETTINGS_FILE.parents[0]  # <root>/{{cookiecutter.project_slug}}/config/settings/
 CONFIGURATION_ROOT = SETTINGS_FILE.parents[1]  # <root>/{{cookiecutter.project_slug}}/config/
@@ -54,6 +58,31 @@ DJANGO_APPS = [
     # Admin
     'django.contrib.admin',
 ]
+{% if cookiecutter.use_djangocms == 'y' -%}
+CMS_APPS = [
+    'cms',
+    'menus',
+    'sekizai',
+    'treebeard',
+    'djangocms_text_ckeditor',
+    'filer',
+    'easy_thumbnails',
+    'djangocms_column',
+    'djangocms_link',
+    'cmsplugin_filer_file',
+    'cmsplugin_filer_folder',
+    'cmsplugin_filer_image',
+    'cmsplugin_filer_utils',
+{% if cookiecutter.use_djangocms_slick == 'y' -%}
+    'cmsplugin_slick',
+{% endif %}
+    'djangocms_style',
+    'djangocms_snippet',
+    'djangocms_googlemap',
+    'djangocms_video',
+    'aldryn_bootstrap3',
+]
+{%- endif %}
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
     'allauth',  # registration
@@ -70,7 +99,11 @@ LOCAL_APPS = [
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+{% if cookiecutter.use_djangocms == 'y' -%}
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + CMS_APPS
+{% else %}
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+{%- endif %}
 
 BOWER_COMPONENTS_ROOT = str(PROJECT_ROOT)
 BOWER_INSTALLED_APPS = (
@@ -86,6 +119,9 @@ BOWER_INSTALLED_APPS = (
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
+{% if cookiecutter.use_djangocms == 'y' -%}
+    'cms.middleware.utils.ApphookReloadMiddleware',
+{%- endif %}
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,6 +129,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+{% if cookiecutter.use_djangocms == 'y' -%}
+    'django.middleware.locale.LocaleMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware'
+{%- endif %}
 ]
 
 # MIGRATIONS CONFIGURATION
@@ -145,7 +188,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = '{{ cookiecutter.timezone }}'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -190,6 +233,11 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
+            {% if cookiecutter.use_djangocms == 'y' -%}
+                'django.template.context_processors.csrf',
+                'sekizai.context_processors.sekizai',
+                'cms.context_processors.cms_settings'
+            {%- endif %}
             ],
         },
     },
@@ -341,3 +389,159 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+{% if cookiecutter.use_djangocms == 'y' -%}
+LANGUAGES = (
+    ## Customize this
+    ('ru', gettext('ru')),
+    ('en', gettext('en')),
+)
+CMS_LANGUAGES = {
+    ## Customize this
+    'default': {
+        'public': True,
+        'redirect_on_fallback': True,
+        'hide_untranslated': False,
+    },
+    1: [
+        {
+            'redirect_on_fallback': True,
+            'public': True,
+            'code': 'ru',
+            'hide_untranslated': False,
+            'name': gettext('ru'),
+        },
+    ],
+}
+
+CMS_TEMPLATES = (
+    ## Customize this
+    ('pages/page.html', 'Базовая страница'),
+    ('pages/home.html', 'Главная'),
+    ('pages/contact.html', 'Контакты'),
+    ('pages/masterclass/masterclass_detail.html', 'Мастер-класс'),
+    ('pages/masterclass/masterclass_list.html', 'Cписок мастер-классов'),
+    # ('feature.html', 'Page with Feature')
+)
+
+CMS_PERMISSION = True
+
+
+def make_text_plugin(body):
+    plugin = {
+        'plugin_type': 'TextPlugin',
+        'values': {
+            'body': '%s' % body
+        },
+    }
+    return plugin
+
+
+CMS_EMPTY_TEXT_PLUGIN = make_text_plugin('<p></p>')
+
+ALDRYN_BOOTSTRAP3_PLUGINS = [
+    "Bootstrap3RowCMSPlugin",
+    "Bootstrap3ColumnCMSPlugin",
+    "Bootstrap3BlockquoteCMSPlugin",
+    "Bootstrap3CiteCMSPlugin",
+    "Bootstrap3CodeCMSPlugin",
+    "Bootstrap3ButtonCMSPlugin",
+    "Bootstrap3ImageCMSPlugin",
+    "Bootstrap3ResponsiveCMSPlugin",
+    "Bootstrap3IconCMSPlugin",
+    "Bootstrap3LabelCMSPlugin",
+    "Bootstrap3JumbotronCMSPlugin",
+    "Bootstrap3AlertCMSPlugin",
+    "Bootstrap3ListGroupCMSPlugin",
+    "Bootstrap3ListGroupItemCMSPlugin",
+    "Bootstrap3PanelCMSPlugin",
+    "Bootstrap3PanelHeadingCMSPlugin",
+    "Bootstrap3PanelBodyCMSPlugin",
+    "Bootstrap3PanelFooterCMSPlugin",
+    "Bootstrap3WellCMSPlugin",
+    "Bootstrap3TabCMSPlugin",
+    "Bootstrap3TabItemCMSPlugin",
+    "Bootstrap3AccordionCMSPlugin",
+    "Bootstrap3AccordionItemCMSPlugin",
+    # "CarouselBase",
+    # "CarouselSlideBase",
+    "Bootstrap3CarouselCMSPlugin",
+    "Bootstrap3CarouselSlideCMSPlugin",
+    "Bootstrap3CarouselSlideFolderCMSPlugin",
+    "Bootstrap3SpacerCMSPlugin",
+    "Bootstrap3FileCMSPlugin",
+]
+
+CMS_PLACEHOLDER_CONF = {
+    None: {
+        'excluded_plugins': [
+            'Bootstrap3BlockquoteCMSPlugin',
+            "Bootstrap3CodeCMSPlugin",
+            "Bootstrap3ImageCMSPlugin",
+            "Bootstrap3JumbotronCMSPlugin",
+            "Bootstrap3ListGroupCMSPlugin",
+            "Bootstrap3ListGroupItemCMSPlugin",
+            "Bootstrap3PanelCMSPlugin",
+            "Bootstrap3PanelHeadingCMSPlugin",
+            "Bootstrap3PanelBodyCMSPlugin",
+            "Bootstrap3PanelFooterCMSPlugin",
+            "Bootstrap3WellCMSPlugin",
+            "Bootstrap3TabCMSPlugin",
+            "Bootstrap3TabItemCMSPlugin",
+            "Bootstrap3AccordionCMSPlugin",
+            "Bootstrap3AccordionItemCMSPlugin",
+            "Bootstrap3CarouselCMSPlugin",
+            "Bootstrap3CarouselSlideCMSPlugin",
+            "Bootstrap3CarouselSlideFolderCMSPlugin",
+            "Bootstrap3SpacerCMSPlugin",
+            "FilerFilePlugin",
+            "FilerFolderPlugin",
+            "MultiColumnPlugin",
+            "VideoPlayerPlugin",
+            "GoogleMapPlugin",
+        ],
+    },
+    'content': {
+        # 'excluded_plugins': ['Bootstrap3BlockquoteCMSPlugin'],
+    },
+    'example': {
+        'name': "Example",
+        'default_plugins': [{
+            'plugin_type': 'TextPlugin',
+            'values': {
+                'body': '<p>Example</p>'
+            },
+        }]
+    },
+}
+MIGRATION_MODULES = {
+}
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters'
+)
+
+CKEDITOR_SETTINGS = {
+    'language': 'ru',
+    'stylesSet': 'default:/static/js/addons/ckeditor.wysiwyg.js',
+    # 'contentsCss': ['/static/css/base.css'],
+    # 'toolbar': 'CMS',
+    'toolbar_CMS': [
+        ['Undo', 'Redo'],
+        ['cmsplugins', 'cmswidget', '-', 'ShowBlocks'],
+        ['Format', 'Styles'],
+        ['TextColor', 'BGColor', '-', 'PasteText', 'PasteFromWord'],
+        ['Maximize', ''],
+        '/',
+        ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+        ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        ['HorizontalRule'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Table'],
+        ['Source']
+    ],
+    'contentsCss': ['https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'],
+}
+{%- endif %}
