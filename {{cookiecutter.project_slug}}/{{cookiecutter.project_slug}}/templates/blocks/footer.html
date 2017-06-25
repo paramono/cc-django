@@ -1,0 +1,13 @@
+{% raw %}
+{% comment %}
+{% load cms_tags %}
+{% endcomment %}
+
+{% block footer %}
+<footer>
+  <p class="py-10 text-center">
+    {% endraw %}{{ cookiecutter.project_name }}&copy;&nbsp;{% raw %} {% now "Y" %}
+  </p>
+</footer>
+{% endblock footer %}
+{% endraw %}

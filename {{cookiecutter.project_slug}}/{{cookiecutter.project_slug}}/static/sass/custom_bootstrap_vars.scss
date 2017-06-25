@@ -1,0 +1,100 @@
+$font-family-open-sans:       "Open Sans", Helvetica, Arial, sans-serif !default;
+$font-family-roboto:          "Roboto", Helvetica, Arial, sans-serif !default;
+$font-family-philosopher:     "Philosopher", Helvetica, Arial, sans-serif !default;
+$font-family-arimo:           "Arimo", Helvetica, Arial, sans-serif !default;
+$font-family-noto-sans:       "Noto Sans", Helvetica, Arial, sans-serif !default;
+$font-family-rubik:           "Rubik", Helvetica, Arial, sans-serif !default;
+$font-family-play:            "Play", Helvetica, Arial, sans-serif !default;
+$font-family-pt-sans-caption: "PT Sans Caption", Helvetica, Arial, sans-serif !default;
+$font-family-scada:           "Scada", Helvetica, Arial, sans-serif !default;
+$font-family-marmelad:        "Marmelad", Helvetica, Arial, sans-serif !default;
+
+// $font-family-sans-serif: $font-family-roboto;
+$font-family-sans-serif: $font-family-open-sans;
+
+// $font-family-sans-serif:  "Philosopher", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Roboto", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Arimo", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Noto Sans", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Rubik", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Play", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "PT Sans Caption", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Scada", Helvetica, Arial, sans-serif !default;
+// $font-family-sans-serif:  "Marmelad", Helvetica, Arial, sans-serif !default;
+$font-family-icons: Helvetica, Arial, sans-serif;
+$font-size-base:          16px;
+// $light_violet: #9224d2;
+// $dark_violet: #351854;
+
+// $font-size-h1:            floor(($font-size-base * 1.8)) !default; // ~36px
+// $font-size-h2:            floor(($font-size-base * 1.5)) !default; // ~30px
+// $font-size-h3:            ceil(($font-size-base * 1.2)) !default; // ~24px
+// $font-size-h4:            ceil(($font-size-base * 1.1)) !default; // ~18px
+// $font-size-h5:            $font-size-base !default;
+// $font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+// $font-size-h1:            floor(($font-size-base * 2.1)) !default; // ~36px
+// $font-size-h2:            floor(($font-size-base * 1.8)) !default; // ~30px
+// $font-size-h3:            ceil(($font-size-base * 1.5)) !default; // ~24px
+// $font-size-h4:            ceil(($font-size-base * 1.2)) !default; // ~18px
+// $font-size-h5:            $font-size-base !default;
+// $font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+// .font-size-h1 {font-size: $font-size-h1;}
+// .font-size-h2 {font-size: $font-size-h2;}
+// .font-size-h3 {font-size: $font-size-h3;}
+// .font-size-h4 {font-size: $font-size-h4;}
+// .font-size-h5 {font-size: $font-size-h5;}
+// .font-size-h6 {font-size: $font-size-h6;}
+
+// $main_color_dark: #542e7d;
+// $main_color_light: #b23cf7;
+// $main_color_very_light: #cdbfe3;
+
+$icon_color_hover: #ce69fd;
+
+// $footer_bg_color: #eee;
+// $footer_bg_color: $main_color_dark;
+// $footer_icon_bg_color: $main_color_light;
+// $footer_icon_bg_color: #a31bf3;
+
+$headings-font-weight:    600 !default;
+// $headings-color:             #a02f91;
+$header_color:            #333; // $old-headings-color;
+
+// $btn-primary-color:              white !default;
+// $btn-primary-bg:                 $main_color_dark !default;
+// $btn-primary-border:             $main_color_dark !default;
+
+$navbar-margin-bottom: 0px;
+// $navbar-default-color:             #794dbd;
+// $navbar-default-link-color:        #794dbd;
+// $navbar-default-bg:                #f6e8ff !default;
+// $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
+
+// $navbar-default-link-active-color: #794dbd;
+// $navbar-default-link-active-bg: #ecceff;
+// $navbar-default-link-hover-color: darken($navbar-default-link-active-color, 10%);
+
+// $navbar-default-toggle-hover-bg:           #eed3ff;
+// $navbar-default-toggle-icon-bar-bg:        $old-headings-color;
+// $navbar-default-toggle-border-color:       #e9c7ff;
+
+// $pagination-color:                     $link-color !default;
+// $pagination-bg:                        #fff !default;
+// $pagination-border:                    #ddd !default;
+
+// $pagination-hover-color:               $link-hover-color !default;
+// $pagination-hover-bg:                  $gray-lighter !default;
+// $pagination-hover-border:              #ddd !default;
+
+// $pagination-active-color:              $btn-primary-color;
+// $pagination-active-bg:                 $btn-primary-bg;
+// $pagination-active-border:             $btn-primary-border;
+
+// // $pagination-disabled-color:            $gray-light !default;
+// $pagination-disabled-bg:               #fff !default;
+// $pagination-disabled-border:           #ddd !default;
+
+// $table-bg-accent:            #fbf4ff;
+
+// $link-color:            #8b00ff;

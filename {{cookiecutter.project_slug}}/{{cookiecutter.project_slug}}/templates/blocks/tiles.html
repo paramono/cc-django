@@ -1,0 +1,24 @@
+{% raw %}
+{% load thumbnail %}
+<div class="row row-same-height">
+  {% for object in objects %}
+  <div class="col-12 col-sm-6 col-md-4 text-center">
+    <div class="card same-height">
+      {% if object.image %}
+        {% thumbnail object.image "160x100" as im %}
+        <div class="mb-2">
+          <img class="img-fluid" src="{{im.url}}">
+        </div>
+        {% endthumbnail %}
+      {% endif %}
+      <h2 class="h6">
+        <a href="{% url 'portfolio:detail' object.pk %}">
+          {{object.title}}
+        </a>
+      </h2>
+      <p>{{object.short_description}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endraw %}

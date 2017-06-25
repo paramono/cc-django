@@ -1,0 +1,44 @@
+@mixin pt($value) {padding-top: $value;}
+@mixin pr($value) {padding-right: $value;}
+@mixin pb($value) {padding-bottom: $value;}
+@mixin pl($value) {padding-left: $value;}
+
+@mixin px($value) {padding-left: $value; padding-right: $value;}
+@mixin py($value) {padding-top: $value; padding-bottom: $value;}
+
+@mixin mt($value) {margin-top: $value;}
+@mixin mr($value) {margin-right: $value;}
+@mixin mb($value) {margin-bottom: $value;}
+@mixin ml($value) {margin-left: $value;}
+
+@mixin mx($value) {margin-left: $value; margin-right: $value;}
+@mixin my($value) {margin-top: $value; margin-bottom: $value;}
+@mixin mx-auto {margin-left: auto; margin-right: auto;}
+
+@mixin maxw($value) {max-width: $value;}
+
+
+@for $i from 1 through 20 {
+    .maxw-#{$i*50}px {@include maxw($i*50px);}
+}
+
+$pm: 1 2 3 4 5 6 7 8 9 10 15 20 25 30 40 50 100 150 200 300;
+@each $i in $pm {
+    .mt-#{$i} {@include mt($i*1px);}
+    .mr-#{$i} {@include mr($i*1px);}
+    .mb-#{$i} {@include mb($i*1px);}
+    .ml-#{$i} {@include ml($i*1px);}
+
+    .mx-#{$i} {@include mx($i*1px);}
+    .my-#{$i} {@include my($i*1px);}
+
+    .pt-#{$i} {@include pt($i*1px);}
+    .pr-#{$i} {@include pr($i*1px);}
+    .pb-#{$i} {@include pb($i*1px);}
+    .pl-#{$i} {@include pl($i*1px);}
+
+    .px-#{$i} {@include px($i*1px);}
+    .py-#{$i} {@include py($i*1px);}
+}
+
+.mx-auto {@include mx-auto;}

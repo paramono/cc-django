@@ -1,0 +1,10 @@
+{% raw %}
+{% comment %}
+{% load cms_tags %}
+{% endcomment %}
+
+<meta property="og:url" content="{# https://paramono.com{{item.get_absolute_url}} #}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{# {% page_attribute 'page_title' %} #}" />
+<meta property="og:description" content="{# {% page_attribute 'meta_description' %} #}" />
+{% endraw %}

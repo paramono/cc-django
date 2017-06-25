@@ -1,0 +1,393 @@
+{%- if cookiecutter.custom_bootstrap_compilation == 'y' -%}
+
+{%- if cookiecutter.bootstrap_version == '3' -%}
+// bootstrap 3
+// Core variables and mixins
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "custom_bootstrap_vars";
+@import "bs3_spacing.scss";
+@import "bs3_classes.scss";
+
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+// Reset and dependencies
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/print";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons";
+
+// Core CSS
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/type";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/code";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/tables";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+
+// Components
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/component-animations";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/navs";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/navbar";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/pagination";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/pager";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/labels";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/badges";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/alerts";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/media";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/list-group";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/panels";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/wells";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/close";
+
+// Components w/ JavaScript
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/modals";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/carousel";
+
+// Utility classes
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
+
+.card {
+  background-color: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+{%- elif cookiecutter.bootstrap_version == '4' -%}
+// bootstrap 4
+// Core variables and mixins
+@import "custom_bootstrap_vars";
+@import "../../../bower_components/bootstrap/scss/variables";
+@import "../../../bower_components/bootstrap/scss/mixins";
+@import "../../../bower_components/bootstrap/scss/custom";
+
+// Reset and dependencies
+@import "../../../bower_components/bootstrap/scss/normalize";
+@import "../../../bower_components/bootstrap/scss/print";
+
+// Core CSS
+@import "../../../bower_components/bootstrap/scss/reboot";
+@import "../../../bower_components/bootstrap/scss/type";
+@import "../../../bower_components/bootstrap/scss/images";
+@import "../../../bower_components/bootstrap/scss/code";
+@import "../../../bower_components/bootstrap/scss/grid";
+@import "../../../bower_components/bootstrap/scss/tables";
+@import "../../../bower_components/bootstrap/scss/forms";
+@import "../../../bower_components/bootstrap/scss/buttons";
+
+// Components
+@import "../../../bower_components/bootstrap/scss/transitions";
+@import "../../../bower_components/bootstrap/scss/dropdown";
+@import "../../../bower_components/bootstrap/scss/button-group";
+@import "../../../bower_components/bootstrap/scss/input-group";
+@import "../../../bower_components/bootstrap/scss/custom-forms";
+@import "../../../bower_components/bootstrap/scss/nav";
+@import "../../../bower_components/bootstrap/scss/navbar";
+
+// project specific CSS goes here
+
+////////////////////////////////
+		//Variables//
+////////////////////////////////
+
+// Alert colors
+
+$white: #fff;
+$mint-green: #d6e9c6;
+$black: #000;
+$pink: #f2dede;
+$dark-pink: #eed3d7;
+$red: #b94a48;
+
+////////////////////////////////
+		//Alerts//
+////////////////////////////////
+
+// bootstrap alert CSS, translated to the django-standard levels of
+// debug, info, success, warning, error
+
+.alert-debug {
+  background-color: $white;
+  border-color: $mint-green;
+  color: $black;
+}
+
+.alert-error {
+  background-color: $pink;
+  border-color: $dark-pink;
+  color: $red;
+}
+
+////////////////////////////////
+		//Navbar//
+////////////////////////////////
+
+// This is a fix for the bootstrap4 alpha release
+
+.navbar {
+  border-radius: 0px;
+}
+
+@media (max-width: 47.9em) {
+  .navbar-nav .nav-item {
+    display: inline-block;
+    float: none;
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item + .nav-item {
+    margin-left: 0;
+  }
+
+  .nav.navbar-nav.pull-xs-right {
+    float: none !important;
+  }
+}
+{%- endif -%}
+{%- endif -%}
+
+
+////////////////////////////////
+		//Django Toolbar//
+////////////////////////////////
+
+// Display django-debug-toolbar.
+// See https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742
+// and https://github.com/pydanny/cookiecutter-django/issues/317
+
+[hidden][style="display: block;"] {
+  display: block !important;
+}
+
+////////////////////////////////
+// Common
+////////////////////////////////
+
+// navbar no border
+@media (min-width: $screen-sm-min) {
+  .navbar-custom {
+    // background-color: transparent;
+  }
+  
+  .navbar {
+    border: none;
+  }
+
+  .navbar-nav-custom>li>a {
+    border-radius: $border-radius-base;
+    
+    // &.active {
+    //   background-color: $component-active-bg;
+    //   color: $component-active-color;
+    // }
+  }
+}
+
+.navbar {
+  font-weight: 700;
+}
+
+// navbar min widths
+.navbar-nav>li {
+  @media (min-width: $screen-sm-min){
+    min-width: 100px;
+    text-align: center;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+  @media (min-width: $screen-md-min){
+    min-width: 125px;
+    text-align: center;
+  }
+  @media (min-width: $screen-lg-min){
+    min-width: 170px;
+    text-align: center;
+  }
+}
+
+// navbar justification
+@media (min-width: $screen-sm-min){
+  .navbar-nav{
+      margin: 0 auto;
+      display: table;
+      table-layout: fixed;
+      float: none;
+  }
+}  
+
+
+a.icon.fa-stack {
+  /* color: #2a9eb7; */
+  // color: $brand-color-very-dark;
+  // color: $footer_icon_bg_color;
+  // text-decoration: none;
+}
+
+// .fa.fa-circle {
+//   color: $footer_icon_bg_color;
+// }
+
+div.content .fa {
+  // color: $main_color_dark;
+}
+// .fa:hover {
+//   color: darken($footer_icon_bg_color, 10%);
+// }
+
+/* a.icon.color-twitter { */
+/* } */
+
+a.icon.fa-stack:hover {
+  /* color: #55c5ba; */
+  color: $icon_color_hover;
+  /* background-color: #00653d; */
+  text-decoration: none;
+}
+
+
+footer {
+  // background-color: $footer_bg_color;
+  // color: #cdbfe3;
+  // padding-top: 10px;
+  // padding-bottom: 10px;
+}
+
+footer a {
+  // color: white;
+  // color: #cdbfe3;
+}
+
+footer a:hover {
+  // color: white;
+  // color: #cdbfe3;
+}
+
+.short-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+header {
+  color: $header_color;
+  // padding-top: 5px;
+  // padding-bottom: 5px;
+}
+header p {
+  // color: white;
+  padding: 0;
+  margin: 0;
+}
+
+header a {
+  // color: white;
+  color: $header_color;
+}
+
+header a:hover {
+  // color: white;
+  color: $header_color;
+}
+
+
+// phantom spacing
+@mixin ph-mt(
+  $margin-xs: 0px,
+  $margin-sm: 0px,
+  $margin-md: 10px,
+  $margin-lg: 10px
+) {
+
+  @media (max-width: $screen-xs-max) {
+    margin-top: $margin-xs;
+  }
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    margin-top: $margin-sm;
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    margin-top: $margin-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    margin-top: $margin-lg;
+  }
+}
+
+@mixin ph-mb(
+  $margin-xs: 0px,
+  $margin-sm: 0px,
+  $margin-md: 10px,
+  $margin-lg: 10px
+) {
+
+  @media (max-width: $screen-xs-max) {
+    margin-bottom: $margin-xs;
+  }
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    margin-bottom: $margin-sm;
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    margin-bottom: $margin-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    margin-bottom: $margin-lg;
+  }
+}
+
+.ph-mt {
+  @include ph-mt;
+}
+
+// .ph-mt-xs-10 {
+//   @include ph-mt(10px, 0px, 0px, 0px);
+// }
+
+// .ph-mb {
+//   @include ph-mb;
+// }
+
+// .ph-mb-xs-10 {
+//   @include ph-mb(10px, 0px, 0px, 0px);
+// }
+
+.font-size-85per {
+  font-size: 85%; 
+}
+
+.font-size-125per {
+  font-size: 125%; 
+}
+
+
+textarea {
+ resize: none;
+}
+
+
+.table th {
+  border-top: none !important; 
+  color: $headings-color;
+}
+
+.breadcrumb {
+  background-color: initial;
+  padding: 0;
+  // margin-top: -15px;
+}
+
+.bg-white {background-color: white}
+.bg-gray {background-color: #f1f1f1}
+
+.color-white {
+    color: white !important;
+}
