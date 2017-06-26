@@ -44,6 +44,9 @@ if READ_DOT_ENV_FILE:
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+{% if cookiecutter.use_djangocms == 'y' %}
+    'djangocms_admin_style',
+{% endif %}
     # Default Django apps:
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +61,8 @@ DJANGO_APPS = [
     # Admin
     'django.contrib.admin',
 ]
-{% if cookiecutter.use_djangocms == 'y' -%}
+
+{% if cookiecutter.use_djangocms == 'y' %}
 CMS_APPS = [
     'cms',
     'menus',
@@ -73,7 +77,7 @@ CMS_APPS = [
     'cmsplugin_filer_folder',
     'cmsplugin_filer_image',
     'cmsplugin_filer_utils',
-{% if cookiecutter.use_djangocms_slick == 'y' -%}
+{% if cookiecutter.use_djangocms_slick == 'y' %}
     'cmsplugin_slick',
 {% endif %}
     'djangocms_style',
@@ -82,7 +86,8 @@ CMS_APPS = [
     'djangocms_video',
     'aldryn_bootstrap3',
 ]
-{%- endif %}
+{% endif %}
+
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
     'allauth',  # registration
@@ -119,7 +124,7 @@ BOWER_INSTALLED_APPS = (
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.use_djangocms == 'y' %}
     'cms.middleware.utils.ApphookReloadMiddleware',
 {%- endif %}
     'django.middleware.security.SecurityMiddleware',
@@ -129,7 +134,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.use_djangocms == 'y' %}
     'django.middleware.locale.LocaleMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
@@ -188,7 +193,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = '{{ cookiecutter.timezone }}'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -233,7 +238,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
-            {% if cookiecutter.use_djangocms == 'y' -%}
+            {% if cookiecutter.use_djangocms == 'y' %}
                 'django.template.context_processors.csrf',
                 'sekizai.context_processors.sekizai',
                 'cms.context_processors.cms_settings'
@@ -394,23 +399,35 @@ ADMIN_URL = r'^admin/'
 LANGUAGES = (
     ## Customize this
     ('ru', gettext('ru')),
+{% if cookiecutter.multiple_languages == 'y' %}
     ('en', gettext('en')),
+{% endif %}
 )
 CMS_LANGUAGES = {
     ## Customize this
     'default': {
+        'fallbacks': ['ru', 'en'],
         'public': True,
         'redirect_on_fallback': True,
         'hide_untranslated': False,
     },
     1: [
         {
+            'code': 'ru',
+            'name': gettext('ru'),
             'redirect_on_fallback': True,
             'public': True,
-            'code': 'ru',
             'hide_untranslated': False,
-            'name': gettext('ru'),
         },
+{% if cookiecutter.multiple_languages == 'y' %}
+        {
+            'code': 'en',
+            'name': gettext('en'),
+            'redirect_on_fallback': True,
+            'public': True,
+            'hide_untranslated': False,
+        },
+{% endif %}
     ],
 }
 
