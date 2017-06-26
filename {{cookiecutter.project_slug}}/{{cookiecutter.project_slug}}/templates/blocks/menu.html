@@ -11,7 +11,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">paramono</a>
+        <a class="navbar-brand" href="/">
+          {% endraw %}{{ cookiecutter.project_slug }}{% raw %}
+        </a>
         <span class="visible-xs navbar-brand">Главное меню</span>
       </div>
 
@@ -25,9 +27,11 @@
         <![if !IE]>
         <ul class="navbar-nav-custom nav navbar-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
           <![endif]>
+          {% endraw %}{% if cookiecutter.use_djangocms != 'y' %}{% raw %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
+          {% endraw %}{% endif %}{% raw %}
         </ul>
       </div>
     </div>
@@ -39,16 +43,20 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <a class="navbar-brand" href="{% url 'home' %}">paramono</a>
+  {% endraw %}{% if cookiecutter.use_djangocms == 'y' %}{% raw %}
+    <a class="navbar-brand" href="{% url 'home' %}">paramono</a>
+  {% endraw %}{% endif %}{% raw %}
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto justify-content-center">
+    {% endraw %}{% if cookiecutter.use_djangocms == 'y' %}{% raw %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'about' %}">About</a>
       </li>
+    {% endraw %}{% endif %}{% raw %}
       {% comment %}
       {% if request.user.is_authenticated %}
         <li class="nav-item">
