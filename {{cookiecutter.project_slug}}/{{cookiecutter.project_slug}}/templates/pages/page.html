@@ -1,0 +1,21 @@
+{% raw %}
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load menu_tags %}
+
+{% block content_header %}
+<div class="container">
+  <div class="centered-block-800">
+    {{ block.super }}
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="centered-block-800">
+      {% placeholder "content" %}
+    </div>
+  </div>
+{% endblock content %}
+{% endraw %}
