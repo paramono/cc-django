@@ -1,9 +1,33 @@
-{% raw %}{% load staticfiles i18n {% endraw %}{% if cookiecutter.use_compressor == "y" %}compress{% endif %}{% raw %}%}<!DOCTYPE html>
+{% if cookiecutter.use_djangocms == 'y' %}{% raw %}
+  {% load cms_tags sekizai_tags %}
+  {% load menu_tags %}
+{% endraw %}
+{% endif -%}
+
+{%- raw %}{% load staticfiles i18n {% endraw %}{% if cookiecutter.use_compressor == "y" %}compress{% endif %}{% raw %}%}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}{% endraw %}{{ cookiecutter.project_name }}{% raw %}{% endblock title %}</title>
+      {% endraw %}{% if cookiecutter.use_djangocms == 'y' %}{% raw %}
+        <title>
+          {% block title %}{% page_attribute "page_title" %}{% endblock %}
+        </title>
+        {% block head_seo %}
+          <meta name="description" content="{% page_attribute 'meta_description' %}">
+        {% endblock %}
+      {% endraw %}{% else %}{% raw %}
+        {% block title %}<title>{% endraw %}{{ cookiecutter.project_name }}{% raw %}</title>{% endblock %}
+      {% endraw %}{% endif %}{% raw %}
+
+    {% block head_social %}
+      {% include "blocks/og.html" with item=feincms_page %}
+    {% endblock %}
+
+    {% block head_social_image %}
+      {% include "blocks/og_image.html" with item=feincms_page %}
+    {% endblock %}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -39,9 +63,11 @@
       {% endraw %}{% if cookiecutter.use_compressor == "y" %}{% raw %}{% endcompress %}{% endraw %}{% endif %}{% raw %}
 
     {% endblock %}
+
+    {% render_block "css" %}
   </head>
 
-  <body class="{% block body_class %}bg-white{% endblock %}">
+  <body class="{% block body_class %}bg-white{% endblock %}">{% cms_toolbar %}
   <div class="wrapper" id="wrapper">
     {% block header %}
       {% include "blocks/header.html" %}
@@ -109,6 +135,7 @@
     {% endraw %}{% if cookiecutter.use_compressor == "y" %}{% raw %}{% endcompress %}{% endraw %}{% endif %}{% raw %}
     {% endblock body_end_js %}
 
+    {% render_block "js" %}
   </body>
 </html>
- {% endraw %}
+{% endraw %}
