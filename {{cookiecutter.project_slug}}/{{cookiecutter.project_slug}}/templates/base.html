@@ -1,4 +1,4 @@
-{% if cookiecutter.use_djangocms == 'y' %}{% raw %}
+{% if cookiecutter.cms == 'djangocms' %}{% raw %}
   {% load cms_tags sekizai_tags %}
   {% load menu_tags %}
 {% endraw %}
@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-      {% endraw %}{% if cookiecutter.use_djangocms == 'y' %}{% raw %}
+      {% endraw %}{% if cookiecutter.cms == 'djangocms' %}{% raw %}
         <title>
           {% block title %}{% page_attribute "page_title" %}{% endblock %}
         </title>

@@ -12,7 +12,7 @@ from pathlib import Path
 
 import environ
 
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.cms == 'djangocms' -%}
 gettext = lambda s: s  # noqa
 {%- endif %}
 
@@ -44,7 +44,7 @@ if READ_DOT_ENV_FILE:
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
-{% if cookiecutter.use_djangocms == 'y' %}
+{% if cookiecutter.cms == 'djangocms' %}
     'djangocms_admin_style',
 {% endif %}
     # Default Django apps:
@@ -62,7 +62,7 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 
-{% if cookiecutter.use_djangocms == 'y' %}
+{% if cookiecutter.cms == 'y' %}
 CMS_APPS = [
     'cms',
     'menus',
@@ -104,7 +104,7 @@ LOCAL_APPS = [
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.cms == 'djangocms' -%}
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + CMS_APPS
 {% else %}
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -124,7 +124,7 @@ BOWER_INSTALLED_APPS = (
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-{% if cookiecutter.use_djangocms == 'y' %}
+{% if cookiecutter.cms == 'djangocms' %}
     'cms.middleware.utils.ApphookReloadMiddleware',
 {%- endif %}
     'django.middleware.security.SecurityMiddleware',
@@ -134,7 +134,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-{% if cookiecutter.use_djangocms == 'y' %}
+{% if cookiecutter.cms == 'djangocms' %}
     'django.middleware.locale.LocaleMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
@@ -238,7 +238,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
-            {% if cookiecutter.use_djangocms == 'y' %}
+            {% if cookiecutter.cms == 'djangocms' %}
                 'django.template.context_processors.csrf',
                 'sekizai.context_processors.sekizai',
                 'cms.context_processors.cms_settings'
@@ -395,7 +395,7 @@ ADMIN_URL = r'^admin/'
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.cms == 'djangocms' -%}
 LANGUAGES = (
     ## Customize this
     ('ru', gettext('ru')),

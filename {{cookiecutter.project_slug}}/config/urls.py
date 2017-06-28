@@ -1,4 +1,4 @@
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.cms == 'djangocms' -%}
 from cms.sitemaps import CMSSitemap
 {%- endif %}
 
@@ -15,7 +15,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.cms == 'djangocms' -%}
 admin.autodiscover()
 
 urlpatterns = [
@@ -61,7 +61,7 @@ if settings.DEBUG:
         ]
 
 
-{% if cookiecutter.use_djangocms == 'y' -%}
+{% if cookiecutter.cms == 'djangocms' -%}
 {% if cookiecutter.multiple_languages %}urlpatterns += i18n_patterns({% else %}urlpatterns += [{% endif %}
     url(r'^admin/', include(admin.site.urls)),  # NOQA
     # url(r'^reviews/', include('reviews.urls', namespace='reviews')),  # NOQA
