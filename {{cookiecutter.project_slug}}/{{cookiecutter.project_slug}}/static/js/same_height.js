@@ -8,7 +8,6 @@ var sameHeight = function() {
 };
 
 $(document).ready(function() {
-  console.log('Sameheight!');
   sameHeight();
 
   $(window).load(function() {

@@ -1,7 +1,3 @@
-{% if cookiecutter.cms == 'djangocms' -%}
-from cms.sitemaps import CMSSitemap
-{%- endif %}
-
 from django.conf import settings
 from django.conf.urls import include, url
 {% if cookiecutter.multiple_languages == 'y' %}
@@ -16,11 +12,36 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 {% if cookiecutter.cms == 'djangocms' -%}
+from cms.sitemaps import CMSSitemap
+{% elif cookiecutter.cms == 'wagtail' -%}
+from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.wagtaildocs import urls as wagtaildocs_urls
+from wagtail.wagtailsearch import urls as wagtailsearch_urls
+{%- endif %}
+
+
+{% if cookiecutter.cms == 'djangocms' -%}
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^sitemap\.xml$', sitemap,
         {'sitemaps': {'cmspages': CMSSitemap}}),
+]
+{% elif cookiecutter.cms == 'wagtail' %}
+urlpatterns = [
+    url(r'^plain-admin/', include(admin.site.urls)),
+
+    url(r'^cms-admin/', include(wagtailadmin_urls)),
+    url(r'^search/', include(wagtailsearch_urls)),
+    url(r'^documents/', include(wagtaildocs_urls)),
+
+    # Optional URL for including your own vanilla Django urls/views
+    # url(r'', include('myapp.urls')),
+
+    # For anything not caught by a more specific rule above, hand over to
+    # Wagtail's serving mechanism
+    url(r'', include(wagtail_urls)),
 ]
 {% else %}
 urlpatterns = [
@@ -35,8 +56,6 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-
-
 ]
 {%- endif %}
 

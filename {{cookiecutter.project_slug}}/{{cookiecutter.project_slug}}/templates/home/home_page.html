@@ -1,0 +1,15 @@
+{% if cookiecutter.cms == 'wagtail' %}{% raw %}
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+<div class="maxw-750px mx-auto">
+  <h1 class="text-center">{{ page.title }}</h1>
+  {{ page.intro|richtext }}
+  {% include_block page.body %}
+</div>
+{% endblock %}
+{% endraw %}{% endif %}

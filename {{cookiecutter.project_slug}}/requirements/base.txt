@@ -6,7 +6,11 @@ wheel==0.29.0
 
 
 # Bleeding edge Django
+{% if cookiecutter.cms == 'djangocms' %}
 django==1.10.7 # pyup: >=1.10,<1.11
+{% else %}
+django==1.11
+{% endif %}
 
 # Configuration
 django-environ==0.4.3
@@ -91,6 +95,8 @@ html5lib>=0.999999,<0.99999999
 django-sekizai>=0.9
 six
 aldryn_bootstrap3
+{% elif cookiecutter.cms == 'wagtail' %}
+wagtail
 {%- endif %}
 
 # Your custom requirements for django cms go here 

@@ -12,7 +12,7 @@ from pathlib import Path
 
 import environ
 
-{% if cookiecutter.cms == 'djangocms' -%}
+{% if cookiecutter.cms != 'None' -%}
 gettext = lambda s: s  # noqa
 {%- endif %}
 
@@ -62,7 +62,7 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 
-{% if cookiecutter.cms == 'y' %}
+{% if cookiecutter.cms == 'djangocms' %}
 CMS_APPS = [
     'cms',
     'menus',
@@ -86,6 +86,20 @@ CMS_APPS = [
     'djangocms_video',
     'aldryn_bootstrap3',
 ]
+{% elif cookiecutter.cms == 'wagtail' %}
+CMS_APPS = [
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
+]
 {% endif %}
 
 THIRD_PARTY_APPS = [
@@ -94,11 +108,18 @@ THIRD_PARTY_APPS = [
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'djangobower',
+{% if cookiecutter.cms == 'wagtail' %}
+    'taggit',
+    'modelcluster',
+{% endif %}
 ]
 
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
+{% if cookiecutter.cms == 'wagtail' %}
+    'home',
+{% endif %}
     '{{ cookiecutter.project_slug }}.users.apps.UsersConfig',
     # Your stuff: custom apps go here
 ]
@@ -106,6 +127,8 @@ LOCAL_APPS = [
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 {% if cookiecutter.cms == 'djangocms' -%}
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + CMS_APPS
+{% elif cookiecutter.cms == 'wagtail' -%}
+INSTALLED_APPS = LOCAL_APPS + CMS_APPS + THIRD_PARTY_APPS + DJANGO_APPS
 {% else %}
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 {%- endif %}
@@ -120,6 +143,8 @@ BOWER_INSTALLED_APPS = (
     'slick-carousel#1.6.0',
     'matchheight#0.7.2',
 )
+
+TAGGIT_CASE_INSENSITIVE = True
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -140,6 +165,9 @@ MIDDLEWARE = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware'
+{% elif cookiecutter.cms == 'wagtail' %}
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 {%- endif %}
 ]
 
@@ -174,6 +202,10 @@ ADMINS = [
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
+
+{% if cookiecutter.cms == 'wagtail' %}
+WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = '{{cookiecutter.email}}'
+{% endif %}
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -395,14 +427,20 @@ ADMIN_URL = r'^admin/'
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 
-{% if cookiecutter.cms == 'djangocms' -%}
-LANGUAGES = (
+LANGUAGES = {% if cookiecutter.cms == 'wagtail' %}[{% else %}({% endif %}
     ## Customize this
     ('ru', gettext('ru')),
 {% if cookiecutter.multiple_languages == 'y' %}
     ('en', gettext('en')),
 {% endif %}
-)
+{% if cookiecutter.cms == 'wagtail' %}]{% else %}){% endif %}
+
+{% if cookiecutter.cms == 'wagtail' %}
+WAGTAILADMIN_PERMITTED_LANGUAGES = LANGUAGES
+WAGTAIL_SITE_NAME = '{{cookiecutter.project_name}}'
+{% endif %}
+
+{% if cookiecutter.cms == 'djangocms' -%}
 CMS_LANGUAGES = {
     ## Customize this
     'default': {

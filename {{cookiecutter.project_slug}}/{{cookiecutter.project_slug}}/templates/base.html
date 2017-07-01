@@ -64,10 +64,15 @@
 
     {% endblock %}
 
+    {% endraw %}{% if cookiecutter.cms == 'djangocms' %}{% raw %}
     {% render_block "css" %}
+    {% endraw %}{% endif %}{% raw %}
   </head>
 
-  <body class="{% block body_class %}bg-white{% endblock %}">{% cms_toolbar %}
+  <body class="{% block body_class %}bg-white{% endblock %}">
+  {% endraw %}{% if cookiecutter.cms == 'djangocms' %}{% raw %}
+  {% cms_toolbar %}
+  {% endraw %}{% endif %}{% raw %}
   <div class="wrapper" id="wrapper">
     {% block header %}
       {% include "blocks/header.html" %}
@@ -135,7 +140,9 @@
     {% endraw %}{% if cookiecutter.use_compressor == "y" %}{% raw %}{% endcompress %}{% endraw %}{% endif %}{% raw %}
     {% endblock body_end_js %}
 
+    {% endraw %}{% if cookiecutter.cms == 'djangocms' %}{% raw %}
     {% render_block "js" %}
+    {% endraw %}{% endif %}{% raw %}
   </body>
 </html>
 {% endraw %}
