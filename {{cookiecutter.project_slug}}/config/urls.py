@@ -38,10 +38,6 @@ urlpatterns = [
 
     # Optional URL for including your own vanilla Django urls/views
     # url(r'', include('myapp.urls')),
-
-    # For anything not caught by a more specific rule above, hand over to
-    # Wagtail's serving mechanism
-    url(r'', include(wagtail_urls)),
 ]
 {% else %}
 urlpatterns = [
@@ -80,11 +76,16 @@ if settings.DEBUG:
         ]
 
 
-{% if cookiecutter.cms == 'djangocms' -%}
 {% if cookiecutter.multiple_languages %}urlpatterns += i18n_patterns({% else %}urlpatterns += [{% endif %}
+{% if cookiecutter.cms == 'djangocms' -%}
     url(r'^admin/', include(admin.site.urls)),  # NOQA
     # url(r'^reviews/', include('reviews.urls', namespace='reviews')),  # NOQA
     # url(r'^', include('djangocms_forms.urls')),
     url(r'^', include('cms.urls')),
+{% elif cookiecutter.cms == 'wagtail' %}
+    # For anything not caught by a more specific rule above, hand over to
+    # Wagtail's serving mechanism
+    url(r'', include(wagtail_urls)),
+{% endif %}
 {% if cookiecutter.multiple_languages == 'y' %}){% else %}]{% endif %}
 {%- endif %}
