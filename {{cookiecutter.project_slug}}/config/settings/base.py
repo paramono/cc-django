@@ -159,8 +159,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-{% if cookiecutter.cms == 'djangocms' %}
+{% if cookiecutter.multiple_languages == 'y' %}
     'django.middleware.locale.LocaleMiddleware',
+{% endif %}
+{% if cookiecutter.cms == 'djangocms' %}
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
