@@ -3,6 +3,11 @@
 {% endraw %}{% if cookiecutter.multiple_languages == 'y' %}{% load wagtail_modeltranslation %}{% endif %}{% raw %}
 
 {% endraw %}{% if cookiecutter.bootstrap_version == '3' %}{% raw %}
+
+{% endraw %}{% if cookiecutter.cms == 'wagtail' %}{% raw %}
+{% get_site_root as site_root %}
+{% endraw %}{% endif %}{% raw %}
+
 <div class="clearfix" id="{{menu_id}}-wrapper">
   <div class="navbar navbar-default {{class}}" role="navigation" id="{{menu_id}}">
     <div class="container-fluid">
