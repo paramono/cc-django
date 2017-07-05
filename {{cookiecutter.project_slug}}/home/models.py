@@ -14,9 +14,9 @@ class HomePage(Page):
     body = StreamField([
         ('text', blocks.RichTextBlock()),
         ('blockquote', blocks.BlockQuoteBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ImageChooserBlock(template='wagtail_blocks/image.html')),
         ('document', DocumentChooserBlock()),
-        ('embed', EmbedBlock()),
+        ('embed', EmbedBlock(template='wagtail_blocks/embed.html')),
     ], blank=True)
 
     content_panels = Page.content_panels + [
