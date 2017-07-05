@@ -1,9 +1,19 @@
 {% raw %}
+
+{% endraw %}{% if cookiecutter.cms == 'None' %}{% if cookiecutter.use_sorl_thumbnail == 'y' %}{% raw %}
 {% load thumbnail %}
+{% endraw %}{% endif %}{% endif %}{% raw %}
+
+{% endraw %}{% if cookiecutter.cms == 'wagtail' %}{% raw %}
+{% load wagtailcore_tags %}
+{% endraw %}{% endif %}{% raw %}
+
+
 <div class="row row-same-height">
   {% for object in objects %}
   <div class="col-12 col-sm-6 col-md-4 text-center">
     <div class="card same-height">
+    {% endraw %}{% if cookiecutter.cms == 'None' %}{% if cookiecutter.use_sorl_thumbnail == 'y' %}{% raw %}
       {% if object.image %}
         {% thumbnail object.image "160x100" as im %}
         <div class="mb-2">
@@ -11,12 +21,22 @@
         </div>
         {% endthumbnail %}
       {% endif %}
+    {% endraw %}{% endif %}{% endif %}{% raw %}
+
+      {% endraw %}{% if cookiecutter.cms == 'wagtail' %}{% raw %}
       <h2 class="h6">
-        <a href="{% url 'portfolio:detail' object.pk %}">
+        <a href="{{ object.specific.url }}">
+          {{object.specific.title}}
+        </a>
+      </h2>
+      {% endraw %}{% else %}{% raw %}
+      <h2 class="h6">
+        <a href="{{ object.get_absolute.url }}">
           {{object.title}}
         </a>
       </h2>
       <p>{{object.short_description}}</p>
+      {% endraw %}{% endif %}{% raw %}
     </div>
   </div>
   {% endfor %}
