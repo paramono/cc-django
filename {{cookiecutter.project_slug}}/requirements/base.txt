@@ -97,6 +97,9 @@ six
 aldryn_bootstrap3
 {% elif cookiecutter.cms == 'wagtail' %}
 wagtail
+{% if cookiecutter.multiple_languages == 'y' %}
+wagtail-modeltranslation==0.6.0rc2
+{% endif %}
 {%- endif %}
 
 # Your custom requirements for django cms go here 
