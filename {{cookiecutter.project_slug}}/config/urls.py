@@ -88,4 +88,3 @@ if settings.DEBUG:
     url(r'', include(wagtail_urls)),
 {% endif %}
 {% if cookiecutter.multiple_languages == 'y' %}){% else %}]{% endif %}
-{%- endif %}
