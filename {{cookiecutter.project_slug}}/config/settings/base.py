@@ -118,6 +118,9 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
 {% if cookiecutter.cms == 'wagtail' %}
+{% if cookiecutter.multiple_languages == 'y' %}
+    'wagtail_modeltranslation',
+{% endif %}
     'home',
 {% endif %}
     '{{ cookiecutter.project_slug }}.users.apps.UsersConfig',
