@@ -31,8 +31,22 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
+          {% endraw %}{% elif cookiecutter.cms == 'wagtail' %}{% raw %}
+            {% top_menu parent=site_root calling_page=self %}
           {% endraw %}{% endif %}{% raw %}
         </ul>
+        
+        {% endraw %}{% if cookiecutter.multiple_languages %}
+        {% if cookiecutter.cms == 'wagtail' %}
+        {% raw %}
+        <ul class="nav navbar-nav navbar-right">
+          {% if request.LANGUAGE_CODE == 'ru' %}
+            <a href="{% switch_language 'en' %}">English</a>
+          {% else %}
+            <a href="{% switch_language 'ru' %}">Russian</a>
+          {% endif %}
+        </ul>
+        {% endraw %}{% endif %}{% endif %}{% raw %}
       </div>
     </div>
   </div>
