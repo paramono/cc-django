@@ -1,4 +1,6 @@
 {% raw %}{% load i18n %}
+{% load wagtail_menu %}
+{% endraw %}{% if cookiecutter.multiple_languages == 'y' %}{% load wagtail_modeltranslation %}{% endif %}{% raw %}
 
 {% endraw %}{% if cookiecutter.bootstrap_version == '3' %}{% raw %}
 <div class="clearfix" id="{{menu_id}}-wrapper">
@@ -36,7 +38,7 @@
           {% endraw %}{% endif %}{% raw %}
         </ul>
         
-        {% endraw %}{% if cookiecutter.multiple_languages %}
+        {% endraw %}{% if cookiecutter.multiple_languages == 'y' %}
         {% if cookiecutter.cms == 'wagtail' %}
         {% raw %}
         <ul class="nav navbar-nav navbar-right">

@@ -123,6 +123,8 @@ LOCAL_APPS = [
 {% endif %}
     'home',
 {% endif %}
+    'core',
+
     '{{ cookiecutter.project_slug }}.users.apps.UsersConfig',
     # Your stuff: custom apps go here
 ]
